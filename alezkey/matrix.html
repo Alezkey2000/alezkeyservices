@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina di Redirect - Stile Matrix</title>
+    <style>
+        /* Impostazioni generali del corpo della pagina */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            background-color: black; /* Sfondo nero per stile Matrix */
+            color: #00ff41; /* Testo verde neon */
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Stile per effetto Matrix sullo sfondo */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://media.giphy.com/media/BUbMgQBShZOcMPohgn/giphy.gif?cid=ecf05e47mqfpz2z3toco9y73h4adgy7dafbdm7s4h0vf50eu&ep=v1_gifs_search&rid=giphy.gif&ct=g') center/cover;
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        /* Contenitore dell'immagine con effetto bagliore pulsante */
+        .profile-image-container {
+            width: 170px;
+            height: 170px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            position: relative;
+            margin-bottom: 30px;
+            background: rgba(0, 255, 65, 0.3);
+            animation: pulsating-glow 3s infinite ease-in-out;
+            padding: 5px; /* Distanza tra immagine e bordo */
+            box-shadow: 0 0 15px 5px rgba(0, 255, 65, 0.6);
+        }
+
+        /* Animazione bagliore pulsante e sfocato */
+        @keyframes pulsating-glow {
+            0%, 100% {
+                box-shadow: 0 0 15px 5px rgba(0, 255, 65, 0.6), 0 0 30px 15px rgba(0, 255, 65, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 25px 10px rgba(0, 255, 65, 0.8), 0 0 50px 25px rgba(0, 255, 65, 0.4);
+            }
+        }
+
+        /* Immagine centrale */
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Forma circolare */
+            object-fit: cover;
+            border: 4px solid #00ff41; /* Bordo verde neon */
+        }
+
+        /* Stile dei bottoni uno sotto l'altro */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .button {
+            padding: 12px 0;
+            background-color: transparent;
+            color: #00ff41;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            border: 2px solid #00ff41;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #00ff41;
+            color: black;
+            box-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41; /* Effetto neon */
+        }
+
+        /* Contenitore nascosto per i nuovi bottoni */
+        .extra-button-container {
+            display: none; /* Nasconde il contenitore inizialmente */
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        /* Stile della freccia per tornare indietro */
+        .back-arrow {
+            display: none; /* Nascondi inizialmente */
+            font-size: 24px;
+            color: #00ff41;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            position: relative;
+            animation: glow 2s infinite alternate;
+            text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41;
+        }
+
+        /* Animazione di bagliore per la freccia */
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41, 0 0 30px #00ff41;
+            }
+            100% {
+                text-shadow: 0 0 20px #00ff41, 0 0 40px #00ff41, 0 0 60px #00ff41;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenitore con effetto di bagliore pulsante intorno all'immagine -->
+    <div class="profile-image-container">
+        <img src="alez.jpg" alt="Immagine Centrale" class="profile-image">
+    </div>
+
+    <!-- Freccia per tornare indietro -->
+    <span id="backArrow" class="back-arrow" onclick="goBack()">⬅️ Torna indietro</span>
+
+    <!-- Contenitore dei bottoni in verticale -->
+    <div id="mainButtons" class="button-container">
+        <a href="#" class="button" onclick="showExtraButtons()">TELEGRAM</a>
+        <a href="https://matrix.to/#/@alezkey:matrix.org?client=im.fluffychat" class="button">MATRIX</a>
+        <a href="https://signal.me/#eu/6vfI8nsfNs_rwCTSmJABQKtTKHTWPLVzg6hvmumJIehnju883ExPLJ1REMMycpKx" class="button">SIGNAL</a>
+    </div>
+
+    <!-- Contenitore dei bottoni aggiuntivi che appare al clic su TELEGRAM -->
+    <div id="extraButtons" class="extra-button-container">
+        <a href="https://t.me/alezkeyprime" class="button">CONTATTO UFFICIALE</a>
+    </div>
+
+    <script>
+        function showExtraButtons() {
+            // Nasconde i bottoni "MATRIX" e "SIGNAL"
+            document.getElementById("mainButtons").style.display = "none";
+            // Mostra il contenitore dei bottoni extra e la freccia
+            document.getElementById("extraButtons").style.display = "flex";
+            document.getElementById("backArrow").style.display = "block";
+        }
+
+        function goBack() {
+            // Mostra di nuovo i bottoni "MATRIX" e "SIGNAL" e nasconde la freccia e i bottoni extra
+            document.getElementById("mainButtons").style.display = "flex";
+            document.getElementById("extraButtons").style.display = "none";
+            document.getElementById("backArrow").style.display = "none";
+        }
+    </script>
+</body>
+</html>
